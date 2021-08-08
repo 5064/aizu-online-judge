@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <algorithm>
+#include <vector>
 using namespace std;
 
 int stack[255];
@@ -18,26 +20,31 @@ int pop()
 }
 int main(int argc, char const *argv[])
 {
-    string str;
-    getline(cin, str);
-    // str.erase(remove(str.begin(), str.end(), ' '), str.end());
+    string str, s;
+    vector<string> v;
 
-    const char *s = str.c_str();
-    for (auto i = s; *i != '\0'; i++)
+    // 標準入力から受け取る
+    getline(cin, str);
+    stringstream ss{str}; 
+    while(getline(ss, s, ' ')){
+        v.push_back(s);
+    }
+
+    for (string token: v)
     {
-        if (i[0] == '+')
+        if (token == "+")
         {
             int a = pop();
             int b = pop();
             push(a + b);
         }
-        else if (i[0] == '-')
+        else if (token == "-")
         {
             int a = pop();
             int b = pop();
-            push(a - b);
+            push(b - a);
         }
-        else if (i[0] == '*')
+        else if (token == "*")
         {
             int a = pop();
             int b = pop();
@@ -45,7 +52,7 @@ int main(int argc, char const *argv[])
         }
         else
         {
-            push(int(i[0] - '0')); // convert char to int
+            push(stoi(token)); // convert str to int
         }
     }
     cout << pop() << endl;
