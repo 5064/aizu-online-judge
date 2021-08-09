@@ -25,12 +25,13 @@ int main(int argc, char const *argv[])
 
     // 標準入力から受け取る
     getline(cin, str);
-    stringstream ss{str}; 
-    while(getline(ss, s, ' ')){
+    stringstream ss{str};
+    while (getline(ss, s, ' '))
+    {
         v.push_back(s);
     }
 
-    for (string token: v)
+    for (string token : v)
     {
         if (token == "+")
         {
